@@ -135,7 +135,7 @@ def createLogFile(formatter,logger):
     logger.addHandler(filehandler)
     return "{}.log".format(FILENAME)
 
-def emailResults(subject,body,fromPerson,toPerson,password,attachments):
+def emailResults(subject,body,fromPerson,toPerson,password,attachments,logger):
 
     logger.info("setting up MIMEMultipart object")
     msg = MIMEMultipart()
@@ -181,7 +181,7 @@ def main():
     
     subject, body = checkSite(url,text,xpath,logger)
 
-    emailResults(subject, body,fromPerson,toPerson,password,attachment)  
+    emailResults(subject, body,fromPerson,toPerson,password,attachment,logger)  
 
 if __name__ == '__main__':
     main()
