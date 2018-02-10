@@ -35,7 +35,7 @@ def output(text,logger,body,logtype=False):
         logger.error(text)
     else:
         logger.info(text)
-    return body+text+"\n"
+    return body+text+"\n", logger
 
 def checkSite(url,text,xpath,logger):
     logger.info("Determing if ["+url+"] has been updated")
@@ -61,43 +61,43 @@ def checkSite(url,text,xpath,logger):
                 border=border+"*"
                 whiteSpace=whiteSpace+" "
             text="*********************************"+border
-            body=output(text,logger,body)
+            body, logger=output(text,logger,body)
             text="*** SITE HAS NOT BEEN UPDATED "+whiteSpace+"***"
-            body=output(text,logger,body)
+            body, logger=output(text,logger,body)
             text="*** Date=["+elems.text+"] ***"
-            body=output(text,logger,body)
+            body, logger=output(text,logger,body)
             text="*********************************"+border
-            body=output(text,logger,body)
+            body, logger=output(text,logger,body)
         else:
             for x in range(0, len (elems.text)-14):
                 border=border+"*"
                 whiteSpace=whiteSpace+" "
             text="*****************************"+border
-            output(text,logger,body)
+            body, logger=output(text,logger,body)
             text="*** SITE HAS BEEN UPDATED "+whiteSpace+"***"
-            output(text,logger,body)
+            body, logger=output(text,logger,body)
             text="*** Date=["+elems.text+"] ***"
-            output(text,logger,body)
+            body, logger=output(text,logger,body)
             text="*****************************"+border
-            output(text,logger,body)
+            body, logger=output(text,logger,body)
     except Exception as e:
         text="********************************************************************"
-        output(text,logger,body,True)
+        body, logger=output(text,logger,body,True)
         text="*** FAILURE: unable to obtain webpage due to the following error ***"
-        output(text,logger,body,True)
+        body, logger=output(text,logger,body,True)
         text="***                                                              ***"
-        output(text,logger,body,True)
+        body, logger=output(text,logger,body,True)
         text="********************************************************************"
-        output(text,logger,body,True)
+        body, logger=output(text,logger,body,True)
         text="{}".format(e)
-        output(text,logger,body,True)
+        body, logger=output(text,logger,body,True)
         error=e
     finally:
         try:#first checks to ensure the driver is defined because in certain cases it fails to intialize it after having it crash
           driver
         except NameError:
           text="Driver is undefined, unable to close it"
-          output(text,logger,body)
+          body, logger=output(text,logger,body)
         else:
             if (driver is not None):
                 text="Closing driver"
@@ -106,7 +106,7 @@ def checkSite(url,text,xpath,logger):
                     driver.close()
                 except Exception as e:
                     text="Unable to close the driver due to the following error: {}".format(e)
-                    output(text,logger,body)
+                    body, logger=output(text,logger,body)
                     display = None
                     driver.quit()
         if (error is None):
