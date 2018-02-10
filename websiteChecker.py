@@ -121,17 +121,16 @@ def emailResults(subject,body,fromPerson,toPerson,password,attachments):
     msg['Subject']=subject
     msg.attach(MIMEText(body))
 
-    for att in attachments:
-        try:
-            package = open(att, 'rb')
-            payload = MIMEBase('application','octet-stream')
-            payload.set_payload(package.read())
-            encoders.encode_base64(payload)
-            payload.add_header('Content-Disposition','attachment; filename={}'.format(att))
-            msg.attach(payload)
-            logger.info("{} has been attached".format(att))
-        except Exception as e:
-            logger.error("{} could not be attached. Error {}".format())
+    try:
+        package = open(attachments, 'rb')
+        payload = MIMEBase('application','octet-stream')
+        payload.set_payload(package.read())
+        encoders.encode_base64(payload)
+        payload.add_header('Content-Disposition','attachment; filename={}'.format(attachments))
+        msg.attach(payload)
+        logger.info("{} has been attached".format(attachments))
+    except Exception as e:
+        logger.error("{} could not be attached. Error {}".format())
 
     logger.info("Connecting to smtp.gmail.com:587")
     server = smtplib.SMTP()
