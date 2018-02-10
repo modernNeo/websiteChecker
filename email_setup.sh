@@ -41,11 +41,11 @@ echo "enter your gmail user name here [everything before @gmail.com]: "
 read gmailuserName
 echo "Enter password"
 read gmailPassword
-sudo bash -c "echo 'root=$(gmailuserName)@gmail' > /etc/ssmtp/ssmpt.conf"
+sudo bash -c "echo 'root=$gmailuserName@gmail' > /etc/ssmtp/ssmpt.conf"
 sudo bash -c "echo 'mailhub=smtp.gmail.com:465' >> /etc/ssmtp/ssmpt.conf"
 sudo bash -c "echo 'FromLineOverride=YES' >> /etc/ssmtp/ssmpt.conf"
-sudo bash -c "echo 'AuthUser=$(gmailuserName)@gmail.com' >> /etc/ssmtp/ssmpt.conf"
-sudo bash -c "echo 'AuthPass=$(gmailPassword)' >> /etc/ssmtp/ssmpt.conf"
+sudo bash -c "echo 'AuthUser=$gmailuserName@gmail.com' >> /etc/ssmtp/ssmpt.conf"
+sudo bash -c "echo 'AuthPass=$gmailPassword' >> /etc/ssmtp/ssmpt.conf"
 sudo bash -c "echo 'UseSTARTTLS=YES' >> /etc/ssmtp/ssmpt.conf"
 touch ./email.log
 #chmod 640 /etc/ssmtp/ssmtp.conf
