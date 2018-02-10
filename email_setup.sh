@@ -26,8 +26,7 @@ create_box (){
 	# section for bordering
 	echo -n "###"; for i in $(seq $(($greatestLength + 2))); do echo -n " "; done;	echo "###"	
 	for i in $(seq $(($greatestLength + 8))); do echo -n "#"; done;
-	echo "\n"
-
+	echo; echo
 }
 
 output[0]="Installng sendemail along with all other neeeded libaries"
@@ -37,20 +36,20 @@ sudo apt-get -y update
 sudo apt-get install -y sendemail
 sudo apt-get install -y libio-socket-ssl-perl 
 sudo apt-get install -y ssmtp
-echo "enter your gmail user name here [everything before @gmail.com]: "
+echo "enter your gmail user name here [everything before \"@gmail.com\"]: "
 read gmailuserName
-echo "Enter password"
-read gmailPassword
-sudo bash -c "echo 'root=$gmailuserName@gmail' > /etc/ssmtp/ssmpt.conf"
-sudo bash -c "echo 'mailhub=smtp.gmail.com:465' >> /etc/ssmtp/ssmpt.conf"
-sudo bash -c "echo 'FromLineOverride=YES' >> /etc/ssmtp/ssmpt.conf"
-sudo bash -c "echo 'AuthUser=$gmailuserName@gmail.com' >> /etc/ssmtp/ssmpt.conf"
-sudo bash -c "echo 'AuthPass=$gmailPassword' >> /etc/ssmtp/ssmpt.conf"
-sudo bash -c "echo 'UseSTARTTLS=YES' >> /etc/ssmtp/ssmpt.conf"
+#echo "Enter password"
+#read gmailPassword
+#sudo bash -c "echo 'root=$gmailuserName@gmail' > /etc/ssmtp/ssmtp.conf"
+#sudo bash -c "echo 'mailhub=smtp.gmail.com:465' >> /etc/ssmtp/ssmtp.conf"
+#sudo bash -c "echo 'FromLineOverride=YES' >> /etc/ssmtp/ssmtp.conf"
+#sudo bash -c "echo 'AuthUser=$gmailuserName@gmail.com' >> /etc/ssmtp/ssmtp.conf"
+#sudo bash -c "echo 'AuthPass=$gmailPassword' >> /etc/ssmtp/ssmtp.conf"
+#sudo bash -c "echo 'UseSTARTTLS=YES' >> /etc/ssmtp/ssmtp.conf"
 touch ./email.log
 #chmod 640 /etc/ssmtp/ssmtp.conf
 
-output[0]="Example commands to send email:"
+output[0]="Example command to send email:"
 output[1]=""
 output[2]="sendemail -f $gmailuserName@gmail.com -t receiver@domain.com \\"
 output[3]="-s smtp.gmail.com:587 -xu $gmailuserName@gmail.com \\"
