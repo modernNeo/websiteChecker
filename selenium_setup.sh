@@ -59,7 +59,7 @@ then
 fi
 latest=$(cat LATEST_RELEASE)
 wget 'http://chromedriver.storage.googleapis.com/'$latest'/chromedriver_linux'$b'.zip'
-unzip chromedriver.zip
+unzip 'chromedriver_linux'$b'.zip'
 rm chromedriver.zip
 sudo mv chromedriver /usr/bin/.
 export DISPLAY=:99
