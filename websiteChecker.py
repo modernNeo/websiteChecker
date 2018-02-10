@@ -10,6 +10,17 @@ import logging
 import datetime
 import pytz
 
+def initalizeLogger():
+    # setting up log requirements
+    logger = logging.getLogger('websiteChecker')
+    logger.setLevel(logging.DEBUG)
+    formatter = logging.Formatter('%(asctime)s = %(levelname)s - %(message)s', '%Y-%m-%d %H:%M:%S')
+    stream_handler = logging.StreamHandler()
+    stream_handler.setLevel(logging.DEBUG)
+    stream_handler.setFormatter(formatter)
+    logger.addHandler(stream_handler)
+    return logger, formatter
+
 def getInputFrom():
     url=input("What webpage do you want to check? Enter full URL complete with \"https\"=")
     text=input("what text you want to search for on the webpage? ")
@@ -19,16 +30,18 @@ def getInputFrom():
     password=input("Enter the password for=["+fromPerson+"]")
     return url,text,xpath, fromPerson, toPerson, password
 
+
 def create_driver():
-	options = webdriver.ChromeOptions()
-	options.add_argument('--disable-cache')
-	options.add_argument('--headless')
-	options.add_argument('--incognito')
-	options.add_argument('--ignore-certificate-errors')
-	options.add_argument('--start-maximized')
-	options.add_argument('--safebrowsing-disable-download-protection')
-	browser = webdriver.Chrome(chrome_options=options)
-	return browser
+    options = webdriver.ChromeOptions()
+    options.add_argument('--disable-cache')
+    options.add_argument('--headless')
+    options.add_argument('--incognito')
+    options.add_argument('--ignore-certificate-errors')
+    options.add_argument('--start-maximized')
+    options.add_argument('--safebrowsing-disable-download-protection')
+    browser = webdriver.Chrome(chrome_options=options)
+    return browser
+
 
 def output(text,logger,body,logtype=False):
     if (logtype):
@@ -114,6 +127,16 @@ def checkSite(url,text,xpath,logger):
         else:
             return "Unable to check consulate site","{}".format(error), logger
 
+
+def createLogFile(formatter,logger):
+    DATE=datetime.datetime.now(pytz.timezone('US/Pacific')).strftime("%Y_%m_%d_%H_%M_%S")
+    FILENAME="{}_website_checker_report".format(DATE)
+    filehandler=logging.FileHandler("{}.log".format(FILENAME), mode="w")
+    filehandler.setLevel(logging.INFO)
+    filehandler.setFormatter(formatter)
+    logger.addHandler(filehandler)
+    return "{}.log".format(FILENAME)
+
 def emailResults(subject,body,fromPerson,toPerson,password,attachments,logger):
 
     logger.info("setting up MIMEMultipart object")
@@ -145,39 +168,21 @@ def emailResults(subject,body,fromPerson,toPerson,password,attachments,logger):
     server.send_message(from_addr=fromPerson,to_addrs=toPerson,msg=msg)
     server.close()
 
-def initalizeLogger():
-    # setting up log requirements
-    logger = logging.getLogger('websiteChecker')
-    logger.setLevel(logging.DEBUG)
-    formatter = logging.Formatter('%(asctime)s = %(levelname)s - %(message)s', '%Y-%m-%d %H:%M:%S')
-    stream_handler = logging.StreamHandler()
-    stream_handler.setLevel(logging.DEBUG)
-    stream_handler.setFormatter(formatter)
-    logger.addHandler(stream_handler)
-    return logger, formatter
-
-def createLogFile(formatter):
-    DATE=datetime.datetime.now(pytz.timezone('US/Pacific')).strftime("%Y_%m_%d_%H_%M_%S")
-    FILENAME="{}_website_checker_report".format(DATE)
-    filehandler=logging.FileHandler("{}.log".format(FILENAME), mode="w")
-    filehandler.setLevel(logging.INFO)
-    filehandler.setFormatter(formatter)
-    logger.addHandler(filehandler)
-    print("{}.log".format(FILENAME))
-    return "{}.log".format(FILENAME)
 
 if __name__ == '__main__':
 
     logger, formatter = initalizeLogger()
 
+    attachment = createLogFile(formatter,logger)
+
     logger.info("Extracting info from User")
     url,text,xpath,fromPerson,toPerson,password = getInputFrom()
     logger.info("Info extracted from User")
+
     url="http://vancouver.itamaraty.gov.br/pt-br/documentos_militares_para_retirada.xml"
     text="Atualizado em 11/julho/2017"
     xpath="//*[@id=\"mainContentNews\"]/span/div/span"
     
     subject, body, logger = checkSite(url,text,xpath,logger)
 
-    attachment = createLogFile(formatter)
     emailResults(subject, body,fromPerson,toPerson,password,attachment,logger)
