@@ -38,14 +38,14 @@ sudo apt-get install -y libio-socket-ssl-perl
 sudo apt-get install -y ssmtp
 echo "enter your gmail user name here [everything before \"@gmail.com\"]: "
 read gmailuserName
-#echo "Enter password"
-#read gmailPassword
-#sudo bash -c "echo 'root=$gmailuserName@gmail' > /etc/ssmtp/ssmtp.conf"
-#sudo bash -c "echo 'mailhub=smtp.gmail.com:465' >> /etc/ssmtp/ssmtp.conf"
-#sudo bash -c "echo 'FromLineOverride=YES' >> /etc/ssmtp/ssmtp.conf"
-#sudo bash -c "echo 'AuthUser=$gmailuserName@gmail.com' >> /etc/ssmtp/ssmtp.conf"
-#sudo bash -c "echo 'AuthPass=$gmailPassword' >> /etc/ssmtp/ssmtp.conf"
-#sudo bash -c "echo 'UseSTARTTLS=YES' >> /etc/ssmtp/ssmtp.conf"
+echo "Enter password"
+read gmailPassword
+sudo bash -c "echo 'root=$gmailuserName@gmail' > /etc/ssmtp/ssmtp.conf"
+sudo bash -c "echo 'mailhub=smtp.gmail.com:465' >> /etc/ssmtp/ssmtp.conf"
+sudo bash -c "echo 'FromLineOverride=YES' >> /etc/ssmtp/ssmtp.conf"
+sudo bash -c "echo 'AuthUser=$gmailuserName@gmail.com' >> /etc/ssmtp/ssmtp.conf"
+sudo bash -c "echo 'AuthPass=$gmailPassword' >> /etc/ssmtp/ssmtp.conf"
+sudo bash -c "echo 'UseSTARTTLS=YES' >> /etc/ssmtp/ssmtp.conf"
 touch ./email.log
 #chmod 640 /etc/ssmtp/ssmtp.conf
 
