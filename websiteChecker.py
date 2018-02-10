@@ -48,7 +48,7 @@ def output(text,body,logtype=False):
         logger.info(text)
     return body+text+"\n"
 
-def checkSite(url,text,xpath):
+def checkSite(url,text,xpath,logger):
     logger.info("Determing if ["+url+"] has been updated")
     try:
         logger.info("Ensuring that Chrome runs in headless state")
@@ -179,7 +179,7 @@ def main():
     text="Atualizado em 11/julho/2017"
     xpath="//*[@id=\"mainContentNews\"]/span/div/span"
     
-    subject, body = checkSite(url,text,xpath)
+    subject, body = checkSite(url,text,xpath,logger)
 
     emailResults(subject, body,fromPerson,toPerson,password,attachment)  
 
