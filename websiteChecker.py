@@ -33,7 +33,10 @@ def getInputFrom(logger):
     toPerson=input("Enter To address: ")
     logger.info("To email extracted: "+toPerson)
     password=input("Enter the password for ["+fromPerson+"]: ")
-    logger.info("Password extracted: "+password[0]+"***"+password[len(password)-1])
+    blankingPassword=
+    for x in range(0 len(password)-1):
+        blankingPassword=blankingPassword+"*"
+    logger.info("Password extracted: "+password[0:2]+blankingPassword+password[len(password)-2:2])
     return url,text,xpath, fromPerson, toPerson, password
 
 def create_driver():
