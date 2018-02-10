@@ -163,6 +163,7 @@ def createLogFile(formatter):
     filehandler.setLevel(logging.INFO)
     filehandler.setFormatter(formatter)
     logger.addHandler(filehandler)
+    print("{}{}.log".format(DIRECTORY, FILENAME))
     return "{}{}.log".format(DIRECTORY, FILENAME)
 
 if __name__ == '__main__':
