@@ -53,7 +53,7 @@ wget http://chromedriver.storage.googleapis.com/LATEST_RELEASE
 if [ $(uname -m) == i686 ]; 
 then
 	b=32;
-elif [ $(uname -m)== x86_64 ]; 
+elif [ $(uname -m) == x86_64 ]; 
 then
 	b=64; 
 fi
