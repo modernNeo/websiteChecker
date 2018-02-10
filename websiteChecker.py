@@ -141,9 +141,9 @@ def initalizeLogger():
     stream_handler.setLevel(logging.DEBUG)
     stream_handler.setFormatter(formatter)
     logger.addHandler(stream_handler)
-    return logger
+    return logger, formatter
 
-def createLogFile():
+def createLogFile(formatter):
     DIRECTORY="./"
     DATE=datetime.datetime.now(pytz.timezone('US/Pacific')).strftime("%Y_%m_%d_%H_%M_%S")
     FILENAME="{}_website_checker_report".format(DATE)
@@ -154,7 +154,7 @@ def createLogFile():
 
 if __name__ == '__main__':
 
-    logger = initalizeLogger()
+    logger, formatter = initalizeLogger()
 
     logger.info("Extracting info from User")
     url,text,xpath,fromPerson,toPerson,password = getInputFrom()
@@ -165,5 +165,5 @@ if __name__ == '__main__':
     
     subject, body = checkSite(url,text,xpath,logger)
 
-    createLogFile()
+    createLogFile(formatter)
     emailResults(subject, body,fromPerson,toPerson,password)
