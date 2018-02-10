@@ -36,6 +36,9 @@ def getInputFrom(logger):
     blankingPassword=""
     for x in range(0, len(password)-1):
         blankingPassword=blankingPassword+"*"
+    print(len(password))
+    print(len(password)-10)
+    print(password[len(password)-10])
     logger.info("Password extracted: "+password[0:2]+blankingPassword+password[len(password)-10:2])
     return url,text,xpath, fromPerson, toPerson, password
 
