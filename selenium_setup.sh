@@ -57,7 +57,7 @@ elif [ $(uname -m)== x86_64 ];
 then
 	b=64; 
 fi
-latest=$(cat /tmp/chromedriver/LATEST_RELEASE)
+latest=$(cat LATEST_RELEASE)
 wget 'http://chromedriver.storage.googleapis.com/'$latest'/chromedriver_linux'$b'.zip'
 sudo unzip /tmp/chromedriver/chromedriver.zip chromedriver -d /usr/local/bin/
 rm 'http://chromedriver.storage.googleapis.com/'$latest'/chromedriver_linux'$b'.zip'
