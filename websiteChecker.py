@@ -30,7 +30,6 @@ def getInputFrom():
     password=input("Enter the password for=["+fromPerson+"]")
     return url,text,xpath, fromPerson, toPerson, password
 
-
 def create_driver():
     options = webdriver.ChromeOptions()
     options.add_argument('--disable-cache')
@@ -42,15 +41,14 @@ def create_driver():
     browser = webdriver.Chrome(chrome_options=options)
     return browser
 
-
-def output(text,logger,body,logtype=False):
+def output(text,body,logtype=False):
     if (logtype):
         logger.error(text)
     else:
         logger.info(text)
-    return body+text+"\n", logger
+    return body+text+"\n"
 
-def checkSite(url,text,xpath,logger):
+def checkSite(url,text,xpath):
     logger.info("Determing if ["+url+"] has been updated")
     try:
         logger.info("Ensuring that Chrome runs in headless state")
@@ -74,58 +72,58 @@ def checkSite(url,text,xpath,logger):
                 border=border+"*"
                 whiteSpace=whiteSpace+" "
             text="*********************************"+border
-            body, logger=output(text,logger,body)
+            body=output(text,body)
             text="*** SITE HAS NOT BEEN UPDATED "+whiteSpace+"***"
-            body, logger=output(text,logger,body)
+            body=output(text,body)
             text="*** Date=["+elems.text+"] ***"
-            body, logger=output(text,logger,body)
+            body=output(text,body)
             text="*********************************"+border
-            body, logger=output(text,logger,body)
+            body=output(text,body)
         else:
             for x in range(0, len (elems.text)-14):
                 border=border+"*"
                 whiteSpace=whiteSpace+" "
             text="*****************************"+border
-            body, logger=output(text,logger,body)
+            body=output(text,body)
             text="*** SITE HAS BEEN UPDATED "+whiteSpace+"***"
-            body, logger=output(text,logger,body)
+            body=output(text,body)
             text="*** Date=["+elems.text+"] ***"
-            body, logger=output(text,logger,body)
+            body=output(text,body)
             text="*****************************"+border
-            body, logger=output(text,logger,body)
+            body=output(text,body)
     except Exception as e:
         text="********************************************************************"
-        body, logger=output(text,logger,body,True)
+        body=output(text,body,True)
         text="*** FAILURE: unable to obtain webpage due to the following error ***"
-        body, logger=output(text,logger,body,True)
+        body=output(text,body,True)
         text="***                                                              ***"
-        body, logger=output(text,logger,body,True)
+        body=output(text,body,True)
         text="********************************************************************"
-        body, logger=output(text,logger,body,True)
+        body=output(text,body,True)
         text="{}".format(e)
-        body, logger=output(text,logger,body,True)
+        body=output(text,body,True)
         error=e
     finally:
         try:#first checks to ensure the driver is defined because in certain cases it fails to intialize it after having it crash
           driver
         except NameError:
           text="Driver is undefined, unable to close it"
-          body, logger=output(text,logger,body)
+          body =output(text,body)
         else:
             if (driver is not None):
                 text="Closing driver"
-                output(text,logger,body)
+                body =output(text,body)
                 try:
                     driver.close()
                 except Exception as e:
                     text="Unable to close the driver due to the following error: {}".format(e)
-                    body, logger=output(text,logger,body)
+                    body =output(text,body)
                     display = None
                     driver.quit()
         if (error is None):
-            return subject, body, logger
+            return subject, body
         else:
-            return "Unable to check consulate site","{}".format(error), logger
+            return "Unable to check consulate site","{}".format(error)
 
 
 def createLogFile(formatter,logger):
@@ -173,7 +171,7 @@ if __name__ == '__main__':
 
     logger, formatter = initalizeLogger()
 
-    attachment = createLogFile(formatter,logger)
+    attachment = createLogFile(formatter)
 
     logger.info("Extracting info from User")
     url,text,xpath,fromPerson,toPerson,password = getInputFrom()
@@ -183,6 +181,6 @@ if __name__ == '__main__':
     text="Atualizado em 11/julho/2017"
     xpath="//*[@id=\"mainContentNews\"]/span/div/span"
     
-    subject, body, logger = checkSite(url,text,xpath,logger)
+    subject, body = checkSite(url,text,xpath)
 
-    emailResults(subject, body,fromPerson,toPerson,password,attachment,logger)
+    emailResults(subject, body,fromPerson,toPerson,password,attachment)
