@@ -126,7 +126,7 @@ def checkSite(url,text,xpath):
             return "Unable to check consulate site","{}".format(error)
 
 
-def createLogFile(formatter):
+def createLogFile(formatter,logger):
     DATE=datetime.datetime.now(pytz.timezone('US/Pacific')).strftime("%Y_%m_%d_%H_%M_%S")
     FILENAME="{}_website_checker_report".format(DATE)
     filehandler=logging.FileHandler("{}.log".format(FILENAME), mode="w")
@@ -169,7 +169,7 @@ def emailResults(subject,body,fromPerson,toPerson,password,attachments):
 def main():
     formatter = initalizeLogger()
 
-    attachment = createLogFile(formatter)
+    attachment = createLogFile(formatter,logger)
 
     logger.info("Extracting info from User")
     url,text,xpath,fromPerson,toPerson,password = getInputFrom()
