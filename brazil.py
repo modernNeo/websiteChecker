@@ -2,6 +2,7 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 import os
 from selenium import webdriver
 from email.mime.multipart import MIMEMultipart
+from eamil.mime.text import MIMEText
 def create_driver():
 	options = webdriver.ChromeOptions()
 	options.add_argument('--disable-cache')
