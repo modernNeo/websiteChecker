@@ -23,15 +23,15 @@ def initalizeLogger():
 
 def getInputFrom(logger):
     url=input("What webpage do you want to check? Enter full URL complete with \"https\": ")
-    logger.info("URL extracted: "+url)
+    logger.info("URL extracted: "+url+"\n")
     text=input("Ehat text you want to search for on the webpage? ")
-    logger.info("SEARCH text extracted: "+text)
+    logger.info("SEARCH text extracted: "+text+"\n")
     xpath=input("Enter XPath for the element here: ")
-    logger.info("XPATH extracted: "+xpath)
+    logger.info("XPATH extracted: "+xpath+"\n")
     fromPerson=input("Enter From address: ")
-    logger.info("Sender email extracted: "+fromPerson)
+    logger.info("Sender email extracted: "+fromPerson+"\n")
     toPerson=input("Enter To address: ")
-    logger.info("To email extracted: "+toPerson)
+    logger.info("To email extracted: "+toPerson+"\n")
     password=input("Enter the password for ["+fromPerson+"]: ")
     blankingPassword=""
     for x in range(0, len(password)-1):
@@ -39,8 +39,8 @@ def getInputFrom(logger):
     print(len(password))
     print(len(password)-2)
     print(password[len(password)-2])
-    print(password[(len(password)-2):2])
-    logger.info("Password extracted: "+password[0:2]+blankingPassword+password[len(password)-2:2])
+    print(password[(len(password)-2):])
+    logger.info("Password extracted: "+password[0:2]+blankingPassword+password[len(password)-2:])
     return url,text,xpath, fromPerson, toPerson, password
 
 def create_driver():
