@@ -91,7 +91,7 @@ def emailResults(subject,body):
     server.ehlo()
     server.starttls()
     server.login(fromPerson,password)
-    server.sendmail(fromPerson,toPerson,msg)
+    server.send_message(from_addr=fromPerson,to_addrs=toPerson,msg=msg)
     server.close()
 
 if __name__ == '__main__':
