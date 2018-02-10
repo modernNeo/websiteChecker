@@ -11,21 +11,21 @@ create_box (){
 	done
 
 	# section for bordering
-	echo; for i in $(seq $(($greatestLength + 8))); do echo -n "#"; done; echo
-	echo -n "###"; for i in $(seq $(($greatestLength + 2))); do echo -n " "; done; echo "###"
+	echo; for i in $(seq $(($greatestLength + 8))); do echo -n "1"; done; echo
+	echo -n "#2#"; for i in $(seq $(($greatestLength + 2))); do echo -n " "; done; echo "#3#"
 
 	# sectiom for printing logs
 	for i in "${output[@]}"
 	do
 
-		echo -n "### "$i
+		echo -n "#4# "$i
 		for i in $(seq $(($greatestLength - ${#i} +1 ))); do echo -n " "; done;
-		echo "###"
+		echo "#5#"
 	done
 	
 	# section for bordering
-	echo -n "###"; for i in $(seq $(($greatestLength + 2))); do echo -n " "; done;	echo "###"	
-	for i in $(seq $(($greatestLength + 8))); do echo -n "#"; done;
+	echo -n "#6#"; for i in $(seq $(($greatestLength + 2))); do echo -n " "; done;	echo "#7#"	
+	for i in $(seq $(($greatestLength + 8))); do echo -n "8"; done;
 	echo
 
 }
