@@ -22,12 +22,18 @@ def initalizeLogger():
     return formatter, logger
 
 def getInputFrom():
-    url=input("What webpage do you want to check? Enter full URL complete with \"https\"=")
-    text=input("what text you want to search for on the webpage? ")
-    xpath=input("Enter XPath for the element here=")
+    url=input("What webpage do you want to check? Enter full URL complete with \"https\": ")
+    logger.info("URL extracted: "+url)
+    text=input("Ehat text you want to search for on the webpage? ")
+    logger.info("SEARCH text extracted: "+text)
+    xpath=input("Enter XPath for the element here: ")
+    logger.info("XPATH extracted: "+xpath)
     fromPerson=input("Enter From address: ")
+    logger.info("Sender email extracted: "+fromPerson)
     toPerson=input("Enter To address: ")
-    password=input("Enter the password for=["+fromPerson+"]")
+    logger.info("To email extracted: "+toPerson)
+    password=input("Enter the password for ["+fromPerson+"]: ")
+    logger.info("Password extracted: "+password[0]+"***"+password[len(password)-1])
     return url,text,xpath, fromPerson, toPerson, password
 
 def create_driver():
