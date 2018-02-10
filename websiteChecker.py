@@ -41,7 +41,7 @@ def create_driver():
     browser = webdriver.Chrome(chrome_options=options)
     return browser
 
-def output(text,body,logtype=False):
+def output(text,body,logger,logtype=False):
     if (logtype):
         logger.error(text)
     else:
@@ -72,52 +72,52 @@ def checkSite(url,text,xpath,logger):
                 border=border+"*"
                 whiteSpace=whiteSpace+" "
             text="*********************************"+border
-            body=output(text,body)
+            body=output(text,body,logger)
             text="*** SITE HAS NOT BEEN UPDATED "+whiteSpace+"***"
-            body=output(text,body)
+            body=output(text,body,logger)
             text="*** Date=["+elems.text+"] ***"
-            body=output(text,body)
+            body=output(text,body,logger)
             text="*********************************"+border
-            body=output(text,body)
+            body=output(text,body,logger)
         else:
             for x in range(0, len (elems.text)-14):
                 border=border+"*"
                 whiteSpace=whiteSpace+" "
             text="*****************************"+border
-            body=output(text,body)
+            body=output(text,body,logger)
             text="*** SITE HAS BEEN UPDATED "+whiteSpace+"***"
             body=output(text,body)
             text="*** Date=["+elems.text+"] ***"
-            body=output(text,body)
+            body=output(text,body,logger)
             text="*****************************"+border
-            body=output(text,body)
+            body=output(text,body,logger)
     except Exception as e:
         text="********************************************************************"
-        body=output(text,body,True)
+        body=output(text,body,logger,True)
         text="*** FAILURE: unable to obtain webpage due to the following error ***"
         body=output(text,body,True)
         text="***                                                              ***"
-        body=output(text,body,True)
+        body=output(text,body,logger,True)
         text="********************************************************************"
-        body=output(text,body,True)
+        body=output(text,body,logger,True)
         text="{}".format(e)
-        body=output(text,body,True)
+        body=output(text,body,logger,True)
         error=e
     finally:
         try:#first checks to ensure the driver is defined because in certain cases it fails to intialize it after having it crash
           driver
         except NameError:
           text="Driver is undefined, unable to close it"
-          body =output(text,body)
+          body =output(text,body,logger)
         else:
             if (driver is not None):
                 text="Closing driver"
-                body =output(text,body)
+                body =output(text,body,logger)
                 try:
                     driver.close()
                 except Exception as e:
                     text="Unable to close the driver due to the following error: {}".format(e)
-                    body =output(text,body)
+                    body =output(text,body,logger)
                     display = None
                     driver.quit()
         if (error is None):
