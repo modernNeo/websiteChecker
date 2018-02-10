@@ -137,7 +137,7 @@ def createLogFile(formatter,logger):
 
 def emailResults(subject,body,fromPerson,toPerson,password,attachments,logger):
 
-    logger.info("setting up MIMEMultipart object")
+    logger.info("Setting up MIMEMultipart object")
     msg = MIMEMultipart()
     msg['From']=fromPerson
     msg['To']=toPerson
@@ -145,6 +145,7 @@ def emailResults(subject,body,fromPerson,toPerson,password,attachments,logger):
     msg.attach(MIMEText(body))
 
     try:
+        logger.info("Attaching logs to email")
         package = open(attachments, 'rb')
         payload = MIMEBase('application','octet-stream')
         payload.set_payload(package.read())
@@ -160,9 +161,9 @@ def emailResults(subject,body,fromPerson,toPerson,password,attachments,logger):
     server.connect("smtp.gmail.com:587")
     server.ehlo()
     server.starttls()
-    logger.info("logging into your gmail")
+    logger.info("Logging into your gmail")
     server.login(fromPerson,password)
-    logger.info("sending email...")
+    logger.info("Sending email...")
     server.send_message(from_addr=fromPerson,to_addrs=toPerson,msg=msg)
     server.close()
 
