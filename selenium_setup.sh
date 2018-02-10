@@ -49,7 +49,7 @@ python3 -m venv ENV
 . ENV/bin/activate
 pip3 install selenium
 sudo apt-get install unzip
-wget -O http://chromedriver.storage.googleapis.com/LATEST_RELEASE
+wget http://chromedriver.storage.googleapis.com/LATEST_RELEASE
 if [ $(uname -m) == i686 ]; 
 then
 	b=32;
