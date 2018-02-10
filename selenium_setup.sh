@@ -59,8 +59,8 @@ then
 fi
 latest=$(cat LATEST_RELEASE)
 wget 'http://chromedriver.storage.googleapis.com/'$latest'/chromedriver_linux'$b'.zip'
-sudo unzip /tmp/chromedriver/chromedriver.zip chromedriver -d /usr/local/bin/
-rm 'http://chromedriver.storage.googleapis.com/'$latest'/chromedriver_linux'$b'.zip'
+unzip chromedriver.zip
+rm chromedriver.zip
 sudo mv chromedriver /usr/bin/.
 export DISPLAY=:99
 sudo apt-get install -y google-chrome-stable
