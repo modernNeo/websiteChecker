@@ -78,6 +78,7 @@ def checkSite():
 def emailResults(subject,body):
     fromPerson=input("Enter From address: ")
     toPerson=input("Enter To address: ")
+    password=input("Enter the password for=["+fromPerson+"]")
 
     msg = MIMEMultipart()
     msg['From']=fromPerson
@@ -87,6 +88,9 @@ def emailResults(subject,body):
 
     server = smtplib.SMTP()
     server.connect("smtp.gmail.com:587")
+    server.ehlo()
+    server.starttls()
+    server.login(username,password)
     server.sendmail(fromPerson,toPerson,msg)
     server.close()
 
