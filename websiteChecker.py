@@ -5,6 +5,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import smtplib
 import logging
+import datetime
 
 def getInputFrom():
     url=input("What webpage do you want to check? Enter full URL complete with \"https\"=")
