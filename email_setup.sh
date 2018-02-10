@@ -53,8 +53,10 @@ touch ./email.log
 output[0]="Example commands to send email:"
 output[1]=""
 output[2]="sendemail -f $gmailuserName@gmail.com -t receiver@domain.com \\"
-output[3]="[ -l ./email.log ] [ -u Brazil Email Test ] \\"
-output[4]="[ -s smtp.gmail.com:587 ] [ -o tls=auto ] \\"
-output[5]="[ -xu youremail@gmail.com ] [ -xp password ] \\"
+output[3]="-s smtp.gmail.com:587 -xu $gmailuserName@gmail.com \\"
+output[4]="[ -l ./email.log ] [ -u Brazil Email Test ] \\"
+output[5]="[ -o tls=auto ] [ -xp password ] \\"
 output[6]="[ -o message-file=\"/home/ubuntu/body.txt\" ]"
+output[7]=""
+output[8]="*command options in \"[ ]\" are optional"
 create_box $output
