@@ -135,7 +135,7 @@ def emailResults(subject,body,fromPerson,toPerson,password):
 if __name__ == '__main__':
 
     # setting up log requirements
-    logger = logging.setLogger('websiteChecker')
+    logger = logging.getLogger('websiteChecker')
     logger.setLevel(logging.DEBUG)
     formatter = logging.Formatter('%(asctime)s = %(levelname)s - %(message)s', '%Y-%m-%d %H:%M:%S')
     stream_handler = logging.StreamHandler()
