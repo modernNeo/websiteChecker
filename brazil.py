@@ -75,7 +75,7 @@ def checkSite():
 
 def emailResults(subject,body):
     fromPerson=input("Enter From address: ")
-    sender=input("Enter To address: ")
+    toPerson=input("Enter To address: ")
 
     msg = MIMEMultipart()
     msg['From']=fromPerson
