@@ -9,6 +9,7 @@ import smtplib
 import logging
 import datetime
 import pytz
+import argparse
 
 def initalizeLogger():
     # setting up log requirements
@@ -21,17 +22,38 @@ def initalizeLogger():
     logger.addHandler(stream_handler)
     return formatter, logger
 
-def getInputFrom(logger):
-    url=input("What webpage do you want to check? Enter full URL complete with \"https\": ")
-    logger.info("URL extracted: "+url+"\n")
-    text=input("Ehat text you want to search for on the webpage? ")
-    logger.info("SEARCH text extracted: "+text+"\n")
-    xpath=input("Enter XPath for the element here: ")
-    logger.info("XPATH extracted: "+xpath+"\n")
-    fromPerson=input("Enter From address: ")
-    logger.info("Sender email extracted: "+fromPerson+"\n")
-    toPerson=input("Enter To address: ")
-    logger.info("To email extracted: "+toPerson+"\n")
+def getInputFrom(logger, args):
+    logger.info("[getInputFrom] Extracting info from User")
+    if (args.url is None):
+        url=input("What webpage do you want to check? Enter full URL complete with \"https\": ")
+    else:
+        url=args.url
+    logger.info("[getInputFrom] URL extracted: "+url+"\n")
+
+    if (args.text is None):
+        text=input("What text you want to search for on the webpage? ")
+    else:
+        text=args.text
+    logger.info("[getInputFrom] SEARCH text extracted: "+text+"\n")
+
+    if (args.xpath is None):
+        xpath=input("Enter XPath for the element here: ")
+    else:
+        xpath=args.xpath
+    logger.info("[getInputFrom] XPATH extracted: "+xpath+"\n")
+
+    if (args.sender is None):
+        fromPerson=input("Enter From address: ")
+    else:
+        fromPerson=args.sender
+    logger.info("[getInputFrom] Sender email extracted: "+fromPerson+"\n")
+
+    if (args.reciever is None):
+        toPerson=input("Enter To address: ")
+    else:
+        toPerson=args.reciever;
+    logger.info("[getInputFrom] To email extracted: "+toPerson+"\n")
+
     password=input("Enter the password for ["+fromPerson+"]: ")
     blankingPassword=""
     for x in range(0, len(password)-1):
@@ -40,7 +62,8 @@ def getInputFrom(logger):
     print(len(password)-2)
     print(password[len(password)-2])
     print(password[(len(password)-2):])
-    logger.info("Password extracted: "+password[0:2]+blankingPassword+password[len(password)-2:])
+    logger.info("[getInputFrom] Password extracted: "+password[0:2]+blankingPassword+password[len(password)-2:])
+    logger.info("[getInputFrom] Info extracted from User")
     return url,text,xpath, fromPerson, toPerson, password
 
 def create_driver():
@@ -62,18 +85,18 @@ def output(text,body,logger,logtype=False):
     return body+text+"\n"
 
 def checkSite(url,text,xpath,logger):
-    logger.info("Determing if ["+url+"] has been updated")
+    logger.info("[checkSite] Determing if ["+url+"] has been updated")
     try:
-        logger.info("Ensuring that Chrome runs in headless state")
-        logger.info("Initializing the web driver")
+        logger.info("[checkSite] Ensuring that Chrome runs in headless state")
+        logger.info("[checkSite] Initializing the web driver")
         driver = create_driver()
-        logger.info("Setting it to wait for 10 seconds before timing out")
+        logger.info("[checkSite] Setting it to wait for 10 seconds before timing out")
         driver.implicitly_wait(10)
-        logger.info("Attempting to access the url")
+        logger.info("[checkSite] Attempting to access the url")
         driver.get(url)
-        logger.info("Locating the username field on the webpage to indicate that redirect was successful")
+        logger.info("[checkSite] Locating the username field on the webpage to indicate that redirect was successful")
         elems=driver.find_element_by_xpath(xpath)
-        logger.info("Request element has been found")
+        logger.info("[checkSite] Request element has been found")
         error=None
         subject="Site last updated on "+elems.text
 
@@ -84,59 +107,59 @@ def checkSite(url,text,xpath,logger):
             for x in range(0, len (elems.text)-18):
                 border=border+"*"
                 whiteSpace=whiteSpace+" "
-            text="*********************************"+border
+            text="[checkSite] *********************************"+border
             body=output(text,body,logger)
-            text="*** SITE HAS NOT BEEN UPDATED "+whiteSpace+"***"
+            text="[checkSite] *** SITE HAS NOT BEEN UPDATED "+whiteSpace+"***"
             body=output(text,body,logger)
-            text="*** Date=["+elems.text+"] ***"
+            text="[checkSite] *** Date=["+elems.text+"] ***"
             body=output(text,body,logger)
-            text="*********************************"+border
+            text="[checkSite] *********************************"+border
             body=output(text,body,logger)
         else:
             for x in range(0, len (elems.text)-14):
                 border=border+"*"
                 whiteSpace=whiteSpace+" "
-            text="*****************************"+border
+            text="[checkSite] *****************************"+border
             body=output(text,body,logger)
-            text="*** SITE HAS BEEN UPDATED "+whiteSpace+"***"
+            text="[checkSite] *** SITE HAS BEEN UPDATED "+whiteSpace+"***"
             body=output(text,body)
-            text="*** Date=["+elems.text+"] ***"
+            text="[checkSite] *** Date=["+elems.text+"] ***"
             body=output(text,body,logger)
-            text="*****************************"+border
+            text="[checkSite] *****************************"+border
             body=output(text,body,logger)
     except Exception as e:
-        text="********************************************************************"
+        text="[checkSite] ********************************************************************"
         body=output(text,body,logger,True)
-        text="*** FAILURE: unable to obtain webpage due to the following error ***"
+        text="[checkSite] *** FAILURE: unable to obtain webpage due to the following error ***"
         body=output(text,body,True)
-        text="***                                                              ***"
+        text="[checkSite] ***                                                              ***"
         body=output(text,body,logger,True)
-        text="********************************************************************"
+        text="[checkSite] ********************************************************************"
         body=output(text,body,logger,True)
-        text="{}".format(e)
+        text="[checkSite] {}".format(e)
         body=output(text,body,logger,True)
         error=e
     finally:
         try:#first checks to ensure the driver is defined because in certain cases it fails to intialize it after having it crash
           driver
         except NameError:
-          text="Driver is undefined, unable to close it"
+          text="[checkSite] Driver is undefined, unable to close it"
           body =output(text,body,logger)
         else:
             if (driver is not None):
-                text="Closing driver"
+                text="[checkSite] Closing driver"
                 body =output(text,body,logger)
                 try:
                     driver.close()
                 except Exception as e:
-                    text="Unable to close the driver due to the following error: {}".format(e)
+                    text="[checkSite] Unable to close the driver due to the following error: {}".format(e)
                     body =output(text,body,logger)
                     display = None
                     driver.quit()
         if (error is None):
             return subject, body
         else:
-            return "Unable to check consulate site","{}".format(error)
+            return "[checkSite] Unable to check consulate site","{}".format(error)
 
 
 def createLogFile(formatter,logger):
@@ -150,7 +173,7 @@ def createLogFile(formatter,logger):
 
 def emailResults(subject,body,fromPerson,toPerson,password,attachments,logger):
 
-    logger.info("Setting up MIMEMultipart object")
+    logger.info("[emailResults] Setting up MIMEMultipart object")
     msg = MIMEMultipart()
     msg['From']=fromPerson
     msg['To']=toPerson
@@ -158,36 +181,46 @@ def emailResults(subject,body,fromPerson,toPerson,password,attachments,logger):
     msg.attach(MIMEText(body))
 
     try:
-        logger.info("Attaching logs to email")
+        logger.info("[emailResults] Attaching logs to email")
         package = open(attachments, 'rb')
         payload = MIMEBase('application','octet-stream')
         payload.set_payload(package.read())
         encoders.encode_base64(payload)
         payload.add_header('Content-Disposition','attachment; filename={}'.format(attachments))
         msg.attach(payload)
-        logger.info("{} has been attached".format(attachments))
+        logger.info("[emailResults] {} has been attached".format(attachments))
     except Exception as e:
-        logger.error("{} could not be attached. Error {}".format())
+        logger.error("[emailResults] {} could not be attached. Error {}".format())
 
-    logger.info("Connecting to smtp.gmail.com:587")
+    logger.info("[emailResults] Connecting to smtp.gmail.com:587")
     server = smtplib.SMTP()
     server.connect("smtp.gmail.com:587")
     server.ehlo()
     server.starttls()
-    logger.info("Logging into your gmail")
+    logger.info("[emailResults] Logging into your gmail")
     server.login(fromPerson,password)
-    logger.info("Sending email...")
+    logger.info("[emailResults] Sending email...")
     server.send_message(from_addr=fromPerson,to_addrs=toPerson,msg=msg)
     server.close()
 
+def initalizeParser():
+    parser = argparse.ArgumentParser('Checks site to see if particular text has been updated and then emails it')
+    parser.add_argument('-s', '--sender',help='sender of email')
+    parser.add_argument('-r', '--reciever', help='reciever of email')
+    parser.add_argument('-u', '--url', help='url to check')
+    parser.add_argument('-t', '--text', help="Text to check it if has been updated")
+    parser.add_argument('-x', '--xpath', help="XPath of text to check")
+    args = parser.parse_args()
+
+    return args
 def main():
+
     formatter, logger = initalizeLogger()
 
     attachment = createLogFile(formatter,logger)
 
-    logger.info("Extracting info from User")
-    url,text,xpath,fromPerson,toPerson,password = getInputFrom(logger)
-    logger.info("Info extracted from User")
+    args = initalizeParser()
+    url,text,xpath,fromPerson,toPerson,password = getInputFrom(logger, args)
     
     subject, body = checkSite(url,text,xpath,logger)
 
