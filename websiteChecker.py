@@ -19,7 +19,7 @@ def initalizeLogger():
     stream_handler.setLevel(logging.DEBUG)
     stream_handler.setFormatter(formatter)
     logger.addHandler(stream_handler)
-    return logger, formatter
+    return formatter
 
 def getInputFrom():
     url=input("What webpage do you want to check? Enter full URL complete with \"https\"=")
@@ -166,10 +166,8 @@ def emailResults(subject,body,fromPerson,toPerson,password,attachments):
     server.send_message(from_addr=fromPerson,to_addrs=toPerson,msg=msg)
     server.close()
 
-
-if __name__ == '__main__':
-
-    logger, formatter = initalizeLogger()
+def main():
+    formatter = initalizeLogger()
 
     attachment = createLogFile(formatter)
 
@@ -183,4 +181,7 @@ if __name__ == '__main__':
     
     subject, body = checkSite(url,text,xpath)
 
-    emailResults(subject, body,fromPerson,toPerson,password,attachment)
+    emailResults(subject, body,fromPerson,toPerson,password,attachment)  
+
+if __name__ == '__main__':
+    main()
