@@ -112,7 +112,7 @@ def checkSite(url,text,xpath,logger):
         else:
             return "Unable to check consulate site","{}".format(error)
 
-def emailResults(subject,body,fromPerson,toPerson,password):
+def emailResults(subject,body,fromPerson,toPerson,password,attachments):
 
     logger.info("setting up MIMEMultipart object")
     msg = MIMEMultipart()
@@ -120,6 +120,18 @@ def emailResults(subject,body,fromPerson,toPerson,password):
     msg['To']=toPerson
     msg['Subject']=subject
     msg.attach(MIMEText(body))
+
+    for att in attachments:
+        try:
+            package = open(att, 'rb')
+            payload = MIMEBase('application','octet-stream')
+            payload.set_payload(package.read())
+            encoders.encode_base64(payload)
+            payload.add_header('Content-Disposition','attachment; filename={}'.format(att))
+            msg.attach(payload)
+            logger.info("{} has been attached".format(att))
+        except Exception as e:
+            logger.error("{} could not be attached. Error {}".format())
 
     logger.info("Connecting to smtp.gmail.com:587")
     server = smtplib.SMTP()
