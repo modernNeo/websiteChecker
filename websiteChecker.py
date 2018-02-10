@@ -21,7 +21,7 @@ def initalizeLogger():
     logger.addHandler(stream_handler)
     return formatter, logger
 
-def getInputFrom():
+def getInputFrom(logger):
     url=input("What webpage do you want to check? Enter full URL complete with \"https\": ")
     logger.info("URL extracted: "+url)
     text=input("Ehat text you want to search for on the webpage? ")
