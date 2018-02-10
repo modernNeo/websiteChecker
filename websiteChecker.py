@@ -126,7 +126,7 @@ def checkSite(url,text,xpath):
             return "Unable to check consulate site","{}".format(error)
 
 
-def createLogFile(formatter,logger):
+def createLogFile(formatter):
     DATE=datetime.datetime.now(pytz.timezone('US/Pacific')).strftime("%Y_%m_%d_%H_%M_%S")
     FILENAME="{}_website_checker_report".format(DATE)
     filehandler=logging.FileHandler("{}.log".format(FILENAME), mode="w")
