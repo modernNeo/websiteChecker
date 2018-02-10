@@ -60,8 +60,6 @@ def checkSite(url,text,xpath,logger):
             body=output(text,logger,body)
             text="*** SITE HAS NOT BEEN UPDATED "+whiteSpace+"***"
             body=output(text,logger,body)
-            text="*** SITE HAS NOT BEEN UPDATED "+whiteSpace+"***"
-            body=output(text,logger,body)
             text="*** Date=["+elems.text+"] ***"
             body=output(text,logger,body)
             text="*********************************"+border
@@ -132,8 +130,7 @@ def emailResults(subject,body,fromPerson,toPerson,password):
     server.send_message(from_addr=fromPerson,to_addrs=toPerson,msg=msg)
     server.close()
 
-if __name__ == '__main__':
-
+def initalizeLogger():
     # setting up log requirements
     logger = logging.getLogger('websiteChecker')
     logger.setLevel(logging.DEBUG)
@@ -143,11 +140,26 @@ if __name__ == '__main__':
     stream_handler.setFormatter(formatter)
     logger.addHandler(stream_handler)
 
+def createLogFile():
+    DIRECTORY="./"
+    FILENAME="{}_website_checker_report".format(DATE)
+    filehandler=logging.FileHandler("{}{}.log".format(DIRECTORY, FILENAME), mode="w")
+    filehandler.setLevel(logging.INFO)
+    filehandler.setFormatter(formatter)
+    logger.addHandler(filehandler)
+
+if __name__ == '__main__':
+
+    logger = initalizeLogger()
+
     logger.info("Extracting info from User")
     url,text,xpath,fromPerson,toPerson,password = getInputFrom()
     logger.info("Info extracted from User")
     url="http://vancouver.itamaraty.gov.br/pt-br/documentos_militares_para_retirada.xml"
     text="Atualizado em 11/julho/2017"
     xpath="//*[@id=\"mainContentNews\"]/span/div/span"
+    
     subject, body = checkSite(url,text,xpath,logger)
+
+    createLogFile()
     emailResults(subject, body,fromPerson,toPerson,password)
