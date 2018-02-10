@@ -163,6 +163,7 @@ def createLogFile(formatter):
     filehandler.setLevel(logging.INFO)
     filehandler.setFormatter(formatter)
     logger.addHandler(filehandler)
+    return "{}{}.log".format(DIRECTORY, FILENAME)
 
 if __name__ == '__main__':
 
@@ -177,5 +178,5 @@ if __name__ == '__main__':
     
     subject, body = checkSite(url,text,xpath,logger)
 
-    createLogFile(formatter)
-    emailResults(subject, body,fromPerson,toPerson,password)
+    attachment = createLogFile(formatter)
+    emailResults(subject, body,fromPerson,toPerson,password,attachment)
