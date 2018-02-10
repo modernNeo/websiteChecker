@@ -110,9 +110,9 @@ def checkSite(url,text,xpath,logger):
                     display = None
                     driver.quit()
         if (error is None):
-            return subject, body
+            return subject, body, logger
         else:
-            return "Unable to check consulate site","{}".format(error)
+            return "Unable to check consulate site","{}".format(error), logger
 
 def emailResults(subject,body,fromPerson,toPerson,password,attachments,logger):
 
@@ -177,7 +177,7 @@ if __name__ == '__main__':
     text="Atualizado em 11/julho/2017"
     xpath="//*[@id=\"mainContentNews\"]/span/div/span"
     
-    subject, body = checkSite(url,text,xpath,logger)
+    subject, body, logger = checkSite(url,text,xpath,logger)
 
     attachment = createLogFile(formatter)
     emailResults(subject, body,fromPerson,toPerson,password,attachment,logger)
