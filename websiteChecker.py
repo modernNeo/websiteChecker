@@ -135,7 +135,7 @@ def createLogFile(formatter):
     logger.addHandler(filehandler)
     return "{}.log".format(FILENAME)
 
-def emailResults(subject,body,fromPerson,toPerson,password,attachments,logger):
+def emailResults(subject,body,fromPerson,toPerson,password,attachments):
 
     logger.info("setting up MIMEMultipart object")
     msg = MIMEMultipart()
