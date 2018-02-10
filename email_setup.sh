@@ -33,21 +33,10 @@ output[0]="Installng sendemail along with all other neeeded libaries"
 output[1]="For sending an email with gmail"
 create_box $output
 sudo apt-get -y update
-sudo apt-get install -y sendemail
-sudo apt-get install -y libio-socket-ssl-perl 
-sudo apt-get install -y ssmtp
+sudo apt-get install -y sendemail libio-socket-ssl-perl ssmtp
 echo "enter your gmail user name here [everything before \"@gmail.com\"]: "
 read gmailuserName
-echo "Enter password"
-read gmailPassword
-sudo bash -c "echo 'root=$gmailuserName@gmail' > /etc/ssmtp/ssmtp.conf"
-sudo bash -c "echo 'mailhub=smtp.gmail.com:465' >> /etc/ssmtp/ssmtp.conf"
-sudo bash -c "echo 'FromLineOverride=YES' >> /etc/ssmtp/ssmtp.conf"
-sudo bash -c "echo 'AuthUser=$gmailuserName@gmail.com' >> /etc/ssmtp/ssmtp.conf"
-sudo bash -c "echo 'AuthPass=$gmailPassword' >> /etc/ssmtp/ssmtp.conf"
-sudo bash -c "echo 'UseSTARTTLS=YES' >> /etc/ssmtp/ssmtp.conf"
 touch ./email.log
-#chmod 640 /etc/ssmtp/ssmtp.conf
 
 output[0]="Example command to send email:"
 output[1]=""
