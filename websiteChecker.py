@@ -6,6 +6,7 @@ from email.mime.text import MIMEText
 import smtplib
 import logging
 import datetime
+import pytz
 
 def getInputFrom():
     url=input("What webpage do you want to check? Enter full URL complete with \"https\"=")
