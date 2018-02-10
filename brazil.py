@@ -90,7 +90,7 @@ def emailResults(subject,body):
     server.connect("smtp.gmail.com:587")
     server.ehlo()
     server.starttls()
-    server.login(username,password)
+    server.login(fromPerson,password)
     server.sendmail(fromPerson,toPerson,msg)
     server.close()
 
