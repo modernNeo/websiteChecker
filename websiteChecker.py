@@ -31,7 +31,6 @@ def output(text,logger,body,logtype=False):
         logger.error(text)
     else:
         logger.info(text)
-    text="*** SITE HAS NOT BEEN UPDATED "+whiteSpace+"***"
     return body+text+"\n"
 
 def checkSite(url,text,xpath,logger):
