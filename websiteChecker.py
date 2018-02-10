@@ -32,7 +32,7 @@ def output(text,logger,body,logtype=False):
     else:
         logger.info(text)
     text="*** SITE HAS NOT BEEN UPDATED "+whiteSpace+"***"
-    body=text+"\n"
+    return body+text+"\n"
 
 def checkSite(url,text,xpath,logger):
     logger.info("Determing if ["+url+"] has been updated")
@@ -52,20 +52,21 @@ def checkSite(url,text,xpath,logger):
 
         border=""
         whiteSpace=""
+        body=""
         if (elems.text == text):
             for x in range(0, len (elems.text)-18):
                 border=border+"*"
                 whiteSpace=whiteSpace+" "
             text="*********************************"+border
-            output(text,logger,body)
+            body=output(text,logger,body)
             text="*** SITE HAS NOT BEEN UPDATED "+whiteSpace+"***"
-            output(text,logger,body)
+            body=output(text,logger,body)
             text="*** SITE HAS NOT BEEN UPDATED "+whiteSpace+"***"
-            output(text,logger,body)
+            body=output(text,logger,body)
             text="*** Date=["+elems.text+"] ***"
-            output(text,logger,body)
+            body=output(text,logger,body)
             text="*********************************"+border
-            output(text,logger,body)
+            body=output(text,logger,body)
         else:
             for x in range(0, len (elems.text)-14):
                 border=border+"*"
