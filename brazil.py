@@ -10,7 +10,7 @@ def create_driver():
 	options.add_argument('--ignore-certificate-errors')
 	options.add_argument('--start-maximized')
 	options.add_argument('--safebrowsing-disable-download-protection')
-	browser = webdriver.Chrome('path_to_chromedriver', chrome_options=options)
+	browser = webdriver.Chrome('path/to/chromedriver', chrome_options=options)
 	return browser
 
 
@@ -26,25 +26,32 @@ try:
     driver.get(url)
     print("Locating the username field on the webpage to indicate that redirect was successful")
     elems=driver.find_element_by_xpath('//*[@id="mainContentNews"]/span/div/span')
-    print(elems.text)
+
+    border=""
+    whiteSpace=""
 
     if (elems.text == "Atualizado em 11/julho/2017"):
-    	print("*********************************")
-    	print("*** SITE HAS NOT BEEN UPDATED ***")
-    	print("***                           ***")
-    	print("*********************************")
+        for x in range(0, len (elems.text)-18):
+            border=border+"*"
+            whiteSpace=whiteSpace+" "
+        print("*********************************"+border)
+        print("*** SITE HAS NOT BEEN UPDATED "+whiteSpace+"***")
+        print("*** Date=["+elems.text+"] ***")
+        print("*********************************"+border)
     else:
-    	print("*****************************")
-    	print("*** SITE HAS BEEN UPDATED ***")
-    	print("***                       ***")
-    	print("*****************************")		
+        for x in range(0, len (elems.text)-14):
+            border=border+"*"
+            whiteSpace=whiteSpace+" "
+        print("*****************************"+border)
+        print("*** SITE HAS BEEN UPDATED "+whiteSpace+"***")
+        print("*** Date=["+elems.text+"] ***")
+        print("*****************************"+border)		
 except Exception as e:
     print("********************************************************************")
     print("*** FAILURE: unable to obtain webpage due to the following error ***")
     print("***                                                              ***")
     print("********************************************************************")
     print("{}".format(e))
-    redirect_url="REDIRECT_URL is not available"
 finally:
 
     try:#first checks to ensure the driver is defined because in certain cases it fails to intialize it after having it crash
