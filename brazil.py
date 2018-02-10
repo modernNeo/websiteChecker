@@ -30,7 +30,7 @@ def checkSite():
         border=""
         whiteSpace=""
 
-        subject="Site last updated on "+elemns.text
+        subject="Site last updated on "+elems.text
         if (elems.text == "Atualizado em 11/julho/2017"):
             for x in range(0, len (elems.text)-18):
                 border=border+"*"
