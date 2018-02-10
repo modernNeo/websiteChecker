@@ -50,11 +50,11 @@ sudo bash -c "echo 'UseSTARTTLS=YES' >> /etc/ssmtp/ssmpt.conf"
 touch ./email.log
 #chmod 640 /etc/ssmtp/ssmtp.conf
 
-output[0]="example commands to send email"
-output[1]="sendemail [ -l ./email.log ] -f sender@gmail.com \""
-output[2]="-u Brazil Email Test\""
-output[3]="-t receiver@domain.com \""
-output[4]="-s smtp.gmail.com:587\""
-output[5]=" -o tls=auto -xu youremail@gmail.com \""
-output[6]="[ -xp password ] [ -o message-file=\"/home/ubuntu/body.txt\" ]"
+output[0]="Example commands to send email:"
+output[1]=""
+output[2]="sendemail -f sender@gmail.com -t receiver@domain.com \""
+output[3]="[ -l ./email.log ] [ -u Brazil Email Test ] \""
+output[4]="[ -s smtp.gmail.com:587 ] [ -o tls=auto ] \""
+output[5]="[ -xu youremail@gmail.com ] [ -xp password ] \""
+output[6]="[ -o message-file=\"/home/ubuntu/body.txt\" ]"
 create_box $output
