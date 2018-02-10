@@ -19,7 +19,7 @@ def initalizeLogger():
     stream_handler.setLevel(logging.DEBUG)
     stream_handler.setFormatter(formatter)
     logger.addHandler(stream_handler)
-    return formatter
+    return formatter, logger
 
 def getInputFrom():
     url=input("What webpage do you want to check? Enter full URL complete with \"https\"=")
@@ -167,7 +167,7 @@ def emailResults(subject,body,fromPerson,toPerson,password,attachments):
     server.close()
 
 def main():
-    formatter = initalizeLogger()
+    formatter, logger = initalizeLogger()
 
     attachment = createLogFile(formatter,logger)
 
