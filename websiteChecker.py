@@ -145,7 +145,7 @@ if __name__ == '__main__':
 
     logger.info("Extracting info from User")
     url,text,xpath,fromPerson,toPerson,password = getInputFrom()
-    logger.info("Info extracted from User"))
+    logger.info("Info extracted from User")
     url="http://vancouver.itamaraty.gov.br/pt-br/documentos_militares_para_retirada.xml"
     text="Atualizado em 11/julho/2017"
     xpath="//*[@id=\"mainContentNews\"]/span/div/span"
