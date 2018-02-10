@@ -56,5 +56,5 @@ output[2]="-u Brazil Email Test\""
 output[3]="-t receiver@domain.com \""
 output[4]="-s smtp.gmail.com:587\""
 output[5]=" -o tls=auto -xu youremail@gmail.com \""
-output[6]="[ -xp password ] [ -o message-file=\"/home/ubuntu/body.txt\" ] "
+output[6]="[ -xp password ] [ -o message-file=\"/home/ubuntu/body.txt\" ]"
 create_box $output
