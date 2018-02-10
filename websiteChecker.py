@@ -54,7 +54,10 @@ def getInputFrom(logger, args):
         toPerson=args.reciever;
     logger.info("[getInputFrom] To email extracted: "+toPerson+"\n")
 
-    password=input("Enter the password for ["+fromPerson+"]: ")
+    if (args.password is None):
+        password=input("Enter the password for ["+fromPerson+"]: ")
+    else:
+        password=args.password
     blankingPassword=""
     for x in range(0, len(password)-1):
         blankingPassword=blankingPassword+"*"
@@ -206,6 +209,7 @@ def emailResults(subject,body,fromPerson,toPerson,password,attachments,logger):
 def initalizeParser():
     parser = argparse.ArgumentParser('Checks site to see if particular text has been updated and then emails it')
     parser.add_argument('-s', '--sender',help='sender of email')
+    parser.add_argument('-p', '--password', help="password for sender's email")
     parser.add_argument('-r', '--reciever', help='reciever of email')
     parser.add_argument('-u', '--url', help='url to check')
     parser.add_argument('-t', '--text', help="Text to check it if has been updated")
