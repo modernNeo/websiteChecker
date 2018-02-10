@@ -34,7 +34,7 @@ def getInputFrom(logger):
     logger.info("To email extracted: "+toPerson)
     password=input("Enter the password for ["+fromPerson+"]: ")
     blankingPassword=""
-    for x in range(0 len(password)-1):
+    for x in range(0, len(password)-1):
         blankingPassword=blankingPassword+"*"
     logger.info("Password extracted: "+password[0:2]+blankingPassword+password[len(password)-2:2])
     return url,text,xpath, fromPerson, toPerson, password
