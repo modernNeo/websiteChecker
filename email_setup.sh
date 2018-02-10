@@ -11,22 +11,22 @@ create_box (){
 	done
 
 	# section for bordering
-	echo; for i in $(seq $(($greatestLength + 8))); do echo -n "1"; done; echo
-	echo -n "#2#"; for i in $(seq $(($greatestLength + 2))); do echo -n " "; done; echo "#3#"
+	echo; for i in $(seq $(($greatestLength + 8))); do echo -n "#"; done; echo
+	echo -n "###"; for i in $(seq $(($greatestLength + 2))); do echo -n " "; done; echo "###"
 
 	# sectiom for printing logs
 	for i in "${output[@]}"
 	do
 
-		echo -n "#4# "$i
+		echo -n "### "$i
 		for i in $(seq $(($greatestLength - ${#i} +1 ))); do echo -n " "; done;
-		echo "#5#"
+		echo "###"
 	done
 	
 	# section for bordering
-	echo -n "#6#"; for i in $(seq $(($greatestLength + 2))); do echo -n " "; done;	echo "#7#"	
-	for i in $(seq $(($greatestLength + 8))); do echo -n "8"; done;
-	echo
+	echo -n "###"; for i in $(seq $(($greatestLength + 2))); do echo -n " "; done;	echo "###"	
+	for i in $(seq $(($greatestLength + 8))); do echo -n "#"; done;
+	echo "\n"
 
 }
 
@@ -52,9 +52,9 @@ touch ./email.log
 
 output[0]="Example commands to send email:"
 output[1]=""
-output[2]="sendemail -f sender@gmail.com -t receiver@domain.com \""
-output[3]="[ -l ./email.log ] [ -u Brazil Email Test ] \""
-output[4]="[ -s smtp.gmail.com:587 ] [ -o tls=auto ] \""
-output[5]="[ -xu youremail@gmail.com ] [ -xp password ] \""
+output[2]="sendemail -f $gmailuserName@gmail.com -t receiver@domain.com \\"
+output[3]="[ -l ./email.log ] [ -u Brazil Email Test ] \\"
+output[4]="[ -s smtp.gmail.com:587 ] [ -o tls=auto ] \\"
+output[5]="[ -xu youremail@gmail.com ] [ -xp password ] \\"
 output[6]="[ -o message-file=\"/home/ubuntu/body.txt\" ]"
 create_box $output
