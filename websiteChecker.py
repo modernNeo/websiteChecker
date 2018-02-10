@@ -158,7 +158,7 @@ def initalizeLogger():
 def createLogFile(formatter):
     DATE=datetime.datetime.now(pytz.timezone('US/Pacific')).strftime("%Y_%m_%d_%H_%M_%S")
     FILENAME="{}_website_checker_report".format(DATE)
-    filehandler=logging.FileHandler("{}{}.log".format(FILENAME), mode="w")
+    filehandler=logging.FileHandler("{}.log".format(FILENAME), mode="w")
     filehandler.setLevel(logging.INFO)
     filehandler.setFormatter(formatter)
     logger.addHandler(filehandler)
