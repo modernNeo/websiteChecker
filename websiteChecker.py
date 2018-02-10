@@ -114,7 +114,7 @@ def checkSite(url,text,xpath,logger):
         else:
             return "Unable to check consulate site","{}".format(error)
 
-def emailResults(subject,body,fromPerson,toPerson,password,attachments):
+def emailResults(subject,body,fromPerson,toPerson,password,attachments,logger):
 
     logger.info("setting up MIMEMultipart object")
     msg = MIMEMultipart()
@@ -180,4 +180,4 @@ if __name__ == '__main__':
     subject, body = checkSite(url,text,xpath,logger)
 
     attachment = createLogFile(formatter)
-    emailResults(subject, body,fromPerson,toPerson,password,attachment)
+    emailResults(subject, body,fromPerson,toPerson,password,attachment,logger)
