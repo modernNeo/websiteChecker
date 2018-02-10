@@ -179,7 +179,7 @@ def main():
     attachment = createLogFile(formatter,logger)
 
     logger.info("Extracting info from User")
-    url,text,xpath,fromPerson,toPerson,password = getInputFrom()
+    url,text,xpath,fromPerson,toPerson,password = getInputFrom(logger)
     logger.info("Info extracted from User")
 
     url="http://vancouver.itamaraty.gov.br/pt-br/documentos_militares_para_retirada.xml"
