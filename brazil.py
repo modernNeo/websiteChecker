@@ -87,7 +87,7 @@ def emailResults(subject,body):
 
     server = smtplib.SMTP()
     server.connect("smtp.gmail.com:587")
-    server.sendmail(sender,reciever,msg)
+    server.sendmail(fromPerson,toPerson,msg)
     server.close()
 
 if __name__ == '__main__':
