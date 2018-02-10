@@ -51,5 +51,10 @@ touch ./email.log
 #chmod 640 /etc/ssmtp/ssmtp.conf
 
 output[0]="example commands to send email"
-output[1]="sendemail [ -l ./email.log ] -f sender@gmail.com -u \"Brazil Email Test\" -t receiver@domain.com -s \"smtp.gmail.com:587\" -o tls=auto -xu youremail@gmail.com [ -xp password ] [ -o message-file=\"/home/ubuntu/body.txt\" ] "
+output[1]="sendemail [ -l ./email.log ] -f sender@gmail.com \""
+output[2]="-u Brazil Email Test\""
+output[3]="-t receiver@domain.com \""
+output[4]="-s smtp.gmail.com:587\""
+output[5]=" -o tls=auto -xu youremail@gmail.com \""
+output[6]="[ -xp password ] [ -o message-file=\"/home/ubuntu/body.txt\" ] "
 create_box $output
