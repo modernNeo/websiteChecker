@@ -10,20 +10,19 @@ create_box (){
 		fi
 	done
 
-	# section for bordering
+	# section for printing top border
 	echo; for i in $(seq $(($greatestLength + 8))); do echo -n "#"; done; echo
 	echo -n "###"; for i in $(seq $(($greatestLength + 2))); do echo -n " "; done; echo "###"
 
 	# sectiom for printing logs
 	for i in "${output[@]}"
 	do
-
 		echo -n "### "$i
 		for i in $(seq $(($greatestLength - ${#i} +1 ))); do echo -n " "; done;
 		echo "###"
 	done
 	
-	# section for bordering
+	# section for printing bottom border
 	echo -n "###"; for i in $(seq $(($greatestLength + 2))); do echo -n " "; done;	echo "###"	
 	for i in $(seq $(($greatestLength + 8))); do echo -n "#"; done;
 	echo
@@ -47,7 +46,7 @@ create_box $output
 sudo apt-get install -y python3-venv
 python3 -m venv ENV
 . ENV/bin/activate
-pip3 install selenium
+pip3 install -r requirements.txt
 sudo apt-get install unzip
 wget http://chromedriver.storage.googleapis.com/LATEST_RELEASE
 if [ $(uname -m) == i686 ]; 
