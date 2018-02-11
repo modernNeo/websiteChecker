@@ -61,12 +61,7 @@ def getInputFrom(logger, args):
     blankingPassword=""
     for x in range(0, len(password)-1):
         blankingPassword=blankingPassword+"*"
-    print(len(password))
-    print(len(password)-2)
-    print(password[len(password)-2])
-    print(password[(len(password)-2):])
     logger.info("[getInputFrom] Password extracted: "+password[0:2]+blankingPassword+password[len(password)-2:])
-    logger.info("[getInputFrom] Info extracted from User")
     return url,text,xpath, fromPerson, toPerson, password
 
 def create_driver():
@@ -80,12 +75,19 @@ def create_driver():
     browser = webdriver.Chrome(chrome_options=options)
     return browser
 
-def output(text,body,logger,logtype=False):
-    if (logtype):
-        logger.error(text)
+def closeDriver(driver):
+    try:#first checks to ensure the driver is defined because in certain cases it fails to intialize it after having it crash
+      driver
+    except NameError:
+        logger.error("[checkSite] Driver is undefined, unable to close it")
     else:
-        logger.info(text)
-    return body+text+"\n"
+        if (driver is not None):
+            logger.info("[checkSite] Closing driver")
+            try:
+                driver.close()
+            except Exception as e:
+                logger.error("[checkSite] Unable to close the driver due to the following error: {}".format(e))
+                driver.quit()
 
 def checkSite(url,text,xpath,logger):
     logger.info("[checkSite] Determing if ["+url+"] has been updated")
@@ -101,69 +103,45 @@ def checkSite(url,text,xpath,logger):
         elems=driver.find_element_by_xpath(xpath)
         logger.info("[checkSite] Request element has been found")
         error=None
-        subject="Site last updated on "+elems.text
 
         border=""
         whiteSpace=""
-        body=""
         if (elems.text == text):
+            subject="[SCRIPT] Text not changed from="+elems.text
             for x in range(0, len (elems.text)-18):
                 border=border+"*"
                 whiteSpace=whiteSpace+" "
-            text="[checkSite] *********************************"+border
-            body=output(text,body,logger)
-            text="[checkSite] *** SITE HAS NOT BEEN UPDATED "+whiteSpace+"***"
-            body=output(text,body,logger)
-            text="[checkSite] *** Date=["+elems.text+"] ***"
-            body=output(text,body,logger)
-            text="[checkSite] *********************************"+border
-            body=output(text,body,logger)
+            logger.info("[checkSite] *********************************"+border)
+            logger.info("[checkSite] *** SITE HAS NOT BEEN UPDATED "+whiteSpace+"***")
+            logger.info("[checkSite] *** Text=["+elems.text+"] ***")
+            logger.info("[checkSite] *********************************"+border)
         else:
+            subject="[SCRIPT] Text changed to="+elems.text
             for x in range(0, len (elems.text)-14):
                 border=border+"*"
                 whiteSpace=whiteSpace+" "
-            text="[checkSite] *****************************"+border
-            body=output(text,body,logger)
-            text="[checkSite] *** SITE HAS BEEN UPDATED "+whiteSpace+"***"
-            body=output(text,body)
-            text="[checkSite] *** Date=["+elems.text+"] ***"
-            body=output(text,body,logger)
-            text="[checkSite] *****************************"+border
-            body=output(text,body,logger)
+            logger.info("[checkSite] *****************************")
+            logger.info("[checkSite] *** SITE HAS BEEN UPDATED "+whiteSpace+"***")
+            logger.info("[checkSite] *** Text=["+elems.text+"] ***")
+            logger.info("[checkSite] *****************************"+border)
     except Exception as e:
-        text="[checkSite] ********************************************************************"
-        body=output(text,body,logger,True)
-        text="[checkSite] *** FAILURE: unable to obtain webpage due to the following error ***"
-        body=output(text,body,True)
-        text="[checkSite] ***                                                              ***"
-        body=output(text,body,logger,True)
-        text="[checkSite] ********************************************************************"
-        body=output(text,body,logger,True)
-        text="[checkSite] {}".format(e)
-        body=output(text,body,logger,True)
+        logger.error("[checkSite] ********************************************************************")
+        logger.error("[checkSite] *** FAILURE: unable to obtain webpage due to the following error ***")
+        logger.error("[checkSite] ***                                                              ***")
+        logger.error("[checkSite] ********************************************************************")
+        logger.error("[checkSite] {}".format(e))
         error=e
     finally:
-        try:#first checks to ensure the driver is defined because in certain cases it fails to intialize it after having it crash
-          driver
+        closeDriver(driver)
+        try: #now checking to see if the script was able to pull anything from the site
+            subject
         except NameError:
-          text="[checkSite] Driver is undefined, unable to close it"
-          body =output(text,body,logger)
+            return "[SCRIPT ERROR] Could not get text","Email sent from websiteChecker script on AWS"
         else:
-            if (driver is not None):
-                text="[checkSite] Closing driver"
-                body =output(text,body,logger)
-                try:
-                    driver.close()
-                except Exception as e:
-                    text="[checkSite] Unable to close the driver due to the following error: {}".format(e)
-                    body =output(text,body,logger)
-                    display = None
-                    driver.quit()
-        if (error is None):
-            return subject, body
-        else:
-            return "[checkSite] Unable to check consulate site","{}".format(error)
-
+            if (error is None):
+                return subject, "Email sent from websiteChecker script on AWS"
+            else:
+                return "[checkSite] Unable to check site","{}".format(error)      
 
 def createLogFile(formatter,logger):
     DATE=datetime.datetime.now(pytz.timezone('US/Pacific')).strftime("%Y_%m_%d_%H_%M_%S")
