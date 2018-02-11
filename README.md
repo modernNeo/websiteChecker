@@ -1,7 +1,8 @@
 # websiteChecker
 
-This repo comprises of 3 scripts. These were created to run on an Ubuntu 17.10 and python 3.6.3
-If you are using a version of ubuntu below that, you may need to install a third-party repo as the ubuntu official repository does not support anything above 3.4.0 on most Ubuntus below 17.10. For more info, refer to [this script I have for adding the third-party repo](https://github.com/modernNeo/quickRef/blob/master/update_python.sh)
+This repo comprises of 3 scripts. These were created to run on an Ubuntu 17.10 and python 3.6.3.  
+If you are using a version of ubuntu below that, you may need to install a third-party repo as the ubuntu official repository does not support anything above 3.4.0 on most Ubuntus below 17.10.  
+For more info, refer to [this script I have for adding the third-party repo](https://github.com/modernNeo/quickRef/blob/master/update_python.sh)
   
 ## selenium_setup.sh  
 
