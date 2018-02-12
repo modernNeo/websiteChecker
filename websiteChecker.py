@@ -19,7 +19,7 @@ def get_status(driver):
     try:
         driver.execute(Command.STATUS)
         return "Alive"
-    except (socket.error, httplib.CannotSendRequest):
+    except (socket.error, http.client.CannotSendRequest):
         return "Dead"
 
 def initalizeLogger():
