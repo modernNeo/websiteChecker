@@ -10,12 +10,12 @@ Bash script adds the necessary commands and programs to be able to run the websi
   
 ## websiteChecker.py  
 
-necessary inpiuts:  
- * gmail username
- * [gmail application-specific password](https://support.google.com/accounts/answer/185833?hl=en)
- * recipient email
- * url to check
- * text to check
+### Necessary Inputs:  
+ * Gmail username
+ * [Gmail application-specific password](https://support.google.com/accounts/answer/185833?hl=en)
+ * Recipient email
+ * Url to check
+ * Text to check
  * XPath containing the text to check  
 ![Geting XPath for text](getting_xpath.png)
   
