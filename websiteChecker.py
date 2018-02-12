@@ -12,14 +12,14 @@ import pytz
 import argparse
 
 
-import httplib
+import http.client
 import socket
 from selenium.webdriver.remote.command import Command
 def get_status(driver):
     try:
         driver.execute(Command.STATUS)
         return "Alive"
-    except (socket.error, httplib. CannotSendRequest):
+    except (socket.error, httplib.CannotSendRequest):
         return "Dead"
 
 def initalizeLogger():
