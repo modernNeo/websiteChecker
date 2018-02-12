@@ -9,6 +9,8 @@ For more info, refer to [this script I have for adding the third-party repo](htt
 Bash script adds the necessary commands and programs to be able to run the websiteChecker.py script  
   
 ## websiteChecker.py  
+  
+Python script that has the capability to check a website for a certain text and then email a given person with the results of that check to let the person know if the text has been updated or not  
 
 ### Necessary Inputs:  
  * Gmail username
@@ -19,7 +21,6 @@ Bash script adds the necessary commands and programs to be able to run the websi
  * XPath containing the text to check  
 ![Geting XPath for text](getting_xpath.png)
   
-Python script that has the capability to check a website for a certain text and then email a given person with the results of that check to let the person know if the text has been updated or not  
   
 ## email_setup.sh  
 
