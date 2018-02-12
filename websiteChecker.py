@@ -75,7 +75,7 @@ def create_driver():
     browser = webdriver.Chrome(chrome_options=options)
     return browser
 
-def closeDriver(driver):
+def closeDriver(driver,logger):
     try:#first checks to ensure the driver is defined because in certain cases it fails to intialize it after having it crash
       driver
     except NameError:
@@ -132,7 +132,7 @@ def checkSite(url,text,xpath,logger):
         logger.error("[checkSite] {}".format(e))
         error=e
     finally:
-        closeDriver(driver)
+        closeDriver(driver,logger)
         try: #now checking to see if the script was able to pull anything from the site
             subject
         except NameError:
