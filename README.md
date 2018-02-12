@@ -12,7 +12,7 @@ Bash script adds the necessary commands and programs to be able to run the websi
 
 necessary inpiuts:  
  * gmail username
- * gmail application-specific password
+ * [gmail application-specific password](https://support.google.com/accounts/answer/185833?hl=en)
  * recipient email
  * url to check
  * text to check
