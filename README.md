@@ -16,8 +16,8 @@ necessary inpiuts:
  * recipient email
  * url to check
  * text to check
- * XPath containing the text to check
-[Getting XPath for Text](getting_xpath.png)
+ * XPath containing the text to check  
+![Geting XPath for text](getting_xpath.png)
   
 Python script that has the capability to check a website for a certain text and then email a given person with the results of that check to let the person know if the text has been updated or not  
   
