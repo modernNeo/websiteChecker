@@ -19,6 +19,8 @@ Python script that has the capability to check a website for a certain text and 
  * Url to check
  * Text to check
  * XPath containing the text to check: [Some documentation by selenium on how to pull information from website](http://www.seleniumhq.org/docs/03_webdriver.jsp)  
+   
+ #### Extracting an XPath from a Webpage using Chrome' Developer Tools:
 ![Geting XPath for text](getting_xpath.png)
   
   
