@@ -11,6 +11,17 @@ import datetime
 import pytz
 import argparse
 
+
+import httplib
+import socket
+from selenium.webdriver.remote.command import Command
+def get_status(driver):
+    try:
+        driver.execute(Command.STATUS)
+        return "Alive"
+    except (socket.error, httplib. CannotSendRequest):
+        return "Dead"
+
 def initalizeLogger():
     # setting up log requirements
     logger = logging.getLogger('websiteChecker')
@@ -84,10 +95,9 @@ def closeDriver(driver,logger):
         if (driver is not None):
             logger.info("[checkSite] Closing driver")
             try:
-                driver.close()
-            except Exception as e:
-                logger.error("[checkSite] Unable to close the driver due to the following error: {}".format(e))
                 driver.quit()
+            except Exception as e:
+                logger.error("[checkSite] Unable to quit the driver due to the following error: {}".format(e))
 
 def checkSite(url,text,xpath,logger):
     logger.info("[checkSite] Determing if ["+url+"] has been updated")
@@ -133,6 +143,7 @@ def checkSite(url,text,xpath,logger):
         error=e
     finally:
         closeDriver(driver,logger)
+        print(get_status(driver))
         try: #now checking to see if the script was able to pull anything from the site
             subject
         except NameError:
