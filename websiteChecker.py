@@ -53,17 +53,29 @@ def getInputFrom(logger, args):
         xpath=args.xpath
     logger.info("[getInputFrom] XPATH extracted: "+xpath+"\n")
 
-    if (args.sender is None):
-        fromPerson=input("Enter From address: ")
+    if (args.sender_email is None):
+        fromPersonEmail=input("Enter From address: ")
     else:
-        fromPerson=args.sender
-    logger.info("[getInputFrom] Sender email extracted: "+fromPerson+"\n")
+        fromPersonEmail=args.sender_email
+    logger.info("[getInputFrom] Sender email extracted: "+fromPersonEmail+"\n")
 
-    if (args.reciever is None):
-        toPerson=input("Enter To address: ")
+    if (args.sender_name is None):
+        fromPersonName=input("Enter From Name: ")
     else:
-        toPerson=args.reciever;
-    logger.info("[getInputFrom] To email extracted: "+toPerson+"\n")
+        fromPersonName=args.sender_name
+    logger.info("[getInputFrom] Sender name extracted: "+fromPersonName+"\n")
+
+    if (args.reciever_name is None):
+        toPersonName=input("Enter To address: ")
+    else:
+        toPersonName=args.reciever_name;
+    logger.info("[getInputFrom] To email extracted: "+toPersonName+"\n")
+
+    if (args.reciever_email is None):
+        toPersonEmail=input("Enter To address: ")
+    else:
+        toPersonEmail=args.reciever_email;
+    logger.info("[getInputFrom] To email extracted: "+toPersonEmail+"\n")
 
     if (args.password is None):
         password=input("Enter the password for ["+fromPerson+"]: ")
@@ -73,7 +85,7 @@ def getInputFrom(logger, args):
     for x in range(0, len(password)-1):
         blankingPassword=blankingPassword+"*"
     logger.info("[getInputFrom] Password extracted: "+password[0:2]+blankingPassword+password[len(password)-2:])
-    return url,text,xpath, fromPerson, toPerson, password
+    return url,text,xpath, fromPersonName,fromPersonEmail, toPersonName, toPersonEmail, password
 
 def create_driver():
     options = webdriver.ChromeOptions()
@@ -192,9 +204,11 @@ def emailResults(subject,body,fromPersonEmail,fromPersonName,toPersonEmail,toPer
 
 def initalizeParser():
     parser = argparse.ArgumentParser('Checks site to see if particular text has been updated and then emails it')
-    parser.add_argument('-s', '--sender',help='sender of email')
+    parser.add_argument('--sender_name',help='Name of Sender')
+    parser.add_argument('--sender_email',help="Email of Sender")
     parser.add_argument('-p', '--password', help="password for sender's email")
-    parser.add_argument('-r', '--reciever', help='reciever of email')
+    parser.add_argument('--reciever_name', help='Name of Reciever')
+    parser.add_argument('--reciever_email', help="Email of Reciever")
     parser.add_argument('-u', '--url', help='url to check')
     parser.add_argument('-t', '--text', help="Text to check it if has been updated")
     parser.add_argument('-x', '--xpath', help="XPath of text to check")
@@ -208,7 +222,7 @@ def main():
     attachment = createLogFile(formatter,logger)
 
     args = initalizeParser()
-    url,text,xpath,fromPerson,toPerson,password = getInputFrom(logger, args)
+    url,text,xpath,fromPersonName,fromPersonEmail,toPersonName, toPersonEmail,password = getInputFrom(logger, args)
     
     subject, body = checkSite(url,text,xpath,logger)
 
