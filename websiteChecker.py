@@ -174,8 +174,8 @@ def emailResults(subject,body,fromPersonEmail,fromPersonName,toPersonEmail,toPer
 
     logger.info("[emailResults] Setting up MIMEMultipart object")
     msg = MIMEMultipart()
-    msg['From']=fromPersonName" <"+fromPersonEmail+">"
-    msg['To']=toPersonName" <"+toPersonEmail+">"
+    msg['From']=fromPersonName+" <"+fromPersonEmail+">"
+    msg['To']=toPersonName+" <"+toPersonEmail+">"
     msg['Subject']=subject
     msg.attach(MIMEText(body))
 
