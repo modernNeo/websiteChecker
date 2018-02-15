@@ -204,9 +204,9 @@ def emailResults(subject,body,fromPersonName,fromPersonEmail,toPersonName,toPers
     server.ehlo()
     server.starttls()
     logger.info("[emailResults] Logging into your gmail")
-    server.login(fromPerson,password)
+    server.login(fromPersonEmail,password)
     logger.info("[emailResults] Sending email...")
-    server.send_message(from_addr=fromPerson,to_addrs=toPerson,msg=msg)
+    server.send_message(from_addr=fromPersonEmail,to_addrs=toPersonEmail,msg=msg)
     server.close()
 
 def initalizeParser():
