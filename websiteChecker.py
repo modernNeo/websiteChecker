@@ -182,12 +182,19 @@ def emailResults(subject,body,fromPersonName,fromPersonEmail,toPersonName,toPers
     try:
         logger.info("[emailResults] Attaching logs to email")
         package = open(attachments, 'rb')
+        logger.info("1")
         payload = MIMEBase('application','octet-stream')
+        logger.info("2")
         payload.set_payload(package.read())
+        logger.info("3")
         encoders.encode_base64(payload)
+        logger.info("4")
         payload.add_header('Content-Disposition','attachment; filename={}'.format(attachments))
+        logger.info("5")
         msg.attach(payload)
+        logger.info("6")
         logger.info("[emailResults] {} has been attached".format(attachments))
+        logger.info("7")
     except Exception as e:
         logger.error("[emailResults] {} could not be attached. Error {}".format())
 
