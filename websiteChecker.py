@@ -163,8 +163,8 @@ def checkSite(url,text,xpath,logger):
 
 def createLogFile(formatter,logger):
     DATE=datetime.datetime.now(pytz.timezone('US/Pacific')).strftime("%Y_%m_%d_%H_%M_%S")
-    FILENAME="{}_website_checker_report".format(DATE)
-    filehandler=logging.FileHandler("logs/{}.log".format(FILENAME), mode="w")
+    FILENAME="logs/{}_website_checker_report".format(DATE)
+    filehandler=logging.FileHandler("{}.log".format(FILENAME), mode="w")
     filehandler.setLevel(logging.INFO)
     filehandler.setFormatter(formatter)
     logger.addHandler(filehandler)
