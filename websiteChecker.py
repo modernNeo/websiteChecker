@@ -180,7 +180,7 @@ def emailResults(subject,body,fromPersonName,fromPersonEmail,toPersonName,toPers
     msg.attach(MIMEText(body))
 
     try:
-        logger.info("[emailResults] Attaching logs to email")
+        logger.info("[emailResults] Attaching "+attachments+" to email")
         package = open(attachments, 'rb')
         logger.info("1")
         payload = MIMEBase('application','octet-stream')
