@@ -29,6 +29,10 @@ create_box (){
 
 }
 
+############################################################
+## REFERENCE PAGE FOR CHROME "Linux Package Signing Keys" ##
+## https://www.google.com/linuxrepositories/              ##
+############################################################
 output[0]="Adding the repos that are needed for"
 output[1]="Google Chrome and updating the repo list"
 create_box $output
