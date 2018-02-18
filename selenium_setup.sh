@@ -29,6 +29,10 @@ create_box (){
 
 }
 
+############################################################
+## REFERENCE PAGE FOR CHROME "Linux Package Signing Keys" ##
+## https://www.google.com/linuxrepositories/              ##
+############################################################
 output[0]="Adding the repos that are needed for"
 output[1]="Google Chrome and updating the repo list"
 create_box $output
@@ -37,6 +41,11 @@ sudo bash -c "echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stab
 wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 sudo apt-get -y update
 
+
+##################################################
+## REFERENCE PAGE FOR CHROMEDRIVER INSTALLATION ##
+## https://gist.github.com/mikesmullin/2636776  ##
+##################################################
 output[0]="Installing the tools needed to"
 output[1]="Set up a virtual python environment"
 output[2]="And install the needed modules and"
