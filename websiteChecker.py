@@ -113,7 +113,7 @@ def checkSite(url,text,xpath,logger):
         logger.info("[checkSite] Initializing the web driver")
         driver = create_driver()
         logger.info("[checkSite] Setting it to wait for 10 seconds before timing out")
-        driver.implicitly_wait(10)
+        driver.implicitly_wait(20)
         logger.info("[checkSite] Attempting to access the url")
         driver.get(url)
         logger.info("[checkSite] Locating the username field on the webpage to indicate that redirect was successful")
