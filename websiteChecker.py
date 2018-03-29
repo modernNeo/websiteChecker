@@ -39,43 +39,43 @@ def getInputFrom(logger, args):
         url=input("What webpage do you want to check? Enter full URL complete with \"https\": ")
     else:
         url=args.url
-    logger.info("[getInputFrom] URL extracted: "+url)
+    logger.info("[getInputFrom] URL extracted: ["+url+"]")
 
     if (args.text is None):
         text=input("What text you want to search for on the webpage? ")
     else:
         text=args.text
-    logger.info("[getInputFrom] SEARCH text extracted: "+text)
+    logger.info("[getInputFrom] SEARCH text extracted: ["+text+"]")
 
     if (args.xpath is None):
         xpath=input("Enter XPath for the element here: ")
     else:
         xpath=args.xpath
-    logger.info("[getInputFrom] XPATH extracted: "+xpath)
+    logger.info("[getInputFrom] XPATH extracted: ["+xpath+"]")
 
     if (args.sender_email is None):
         fromPersonEmail=input("Enter From address: ")
     else:
         fromPersonEmail=args.sender_email
-    logger.info("[getInputFrom] Sender email extracted: "+fromPersonEmail)
+    logger.info("[getInputFrom] Sender email extracted: ["+fromPersonEmail+"]")
 
     if (args.sender_name is None):
         fromPersonName=input("Enter From Name: ")
     else:
         fromPersonName=args.sender_name
-    logger.info("[getInputFrom] Sender name extracted: "+fromPersonName)
+    logger.info("[getInputFrom] Sender name extracted: ["+fromPersonName+"]")
 
     if (args.reciever_name is None):
         toPersonName=input("Enter To address: ")
     else:
         toPersonName=args.reciever_name;
-    logger.info("[getInputFrom] To email extracted: "+toPersonName)
+    logger.info("[getInputFrom] To email extracted: ["+toPersonName+"]")
 
     if (args.reciever_email is None):
         toPersonEmail=input("Enter To address: ")
     else:
         toPersonEmail=args.reciever_email;
-    logger.info("[getInputFrom] To email extracted: "+toPersonEmail)
+    logger.info("[getInputFrom] To email extracted: ["+toPersonEmail+"]")
 
     if (args.password is None):
         password=input("Enter the password for ["+fromPerson+"]: ")
@@ -88,25 +88,15 @@ def getInputFrom(logger, args):
     return url,text,xpath, fromPersonName,fromPersonEmail, toPersonName, toPersonEmail, password
 
 def create_driver(logger):
-    logger.info("1")
     options = webdriver.ChromeOptions()
-    logger.info("2")
     options.add_argument('--disable-cache')
-    logger.info("3")
     options.add_argument('--headless')
-    logger.info("4")
     options.add_argument('--incognito')
-    logger.info("5")
     options.add_argument('--ignore-certificate-errors')
-    logger.info("6")
     options.add_argument('--start-maximized')
-    logger.info("7")
     options.add_argument('--safebrowsing-disable-download-protection')
-    logger.info("8")
     options.add_argument('no-sandbox')
-    logger.info("9")
     browser = webdriver.Chrome(chrome_options=options)
-    logger.info("10")
     return browser
 
 def closeDriver(driver,logger):
