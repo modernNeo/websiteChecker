@@ -36,8 +36,8 @@ create_box (){
 output[0]="Adding the repos that are needed for"
 output[1]="Google Chrome and updating the repo list"
 create_box $output
-sudo bash -c "echo '# repo for google chrome' >> /etc/apt/sources.list"
-sudo bash -c "echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' >> /etc/apt/sources.list"
+sudo mkdir -p /etc/apt/sources.list.d/
+sudo bash -c "echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' >> /etc/apt/sources.list.d/google-chrome.list"
 wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 sudo apt-get -y update
 
