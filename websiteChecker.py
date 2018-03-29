@@ -103,8 +103,10 @@ def create_driver(logger):
     logger.info("7")
     options.add_argument('--safebrowsing-disable-download-protection')
     logger.info("8")
-    browser = webdriver.Chrome(chrome_options=options)
+    options.add_argument('no-sandbox')
     logger.info("9")
+    browser = webdriver.Chrome(chrome_options=options)
+    logger.info("10")
     return browser
 
 def closeDriver(driver,logger):
