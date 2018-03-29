@@ -120,7 +120,7 @@ def checkSite(url,text,xpath,logger):
     try:
         logger.info("[checkSite] Ensuring that Chrome runs in headless state")
         logger.info("[checkSite] Initializing the web driver")
-        driver = create_driver()
+        driver = create_driver(logger)
         logger.info("[checkSite] Setting it to wait for 10 seconds before timing out")
         driver.implicitly_wait(20)
         logger.info("[checkSite] Attempting to access the url")
