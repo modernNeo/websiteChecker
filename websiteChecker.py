@@ -87,7 +87,7 @@ def getInputFrom(logger, args):
     logger.info("[getInputFrom] Password extracted: "+password[0:2]+blankingPassword+password[len(password)-2:])
     return url,text,xpath, fromPersonName,fromPersonEmail, toPersonName, toPersonEmail, password
 
-def create_driver():
+def create_driver(logger):
     logger.info("1")
     options = webdriver.ChromeOptions()
     logger.info("2")
